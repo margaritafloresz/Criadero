@@ -30,13 +30,14 @@ const port = "3000";
 app.listen(port, function () {
   console.log("Servidor OK en puerto: " + port);
 });
+
 //configuración de rutas
 
 app.get("/", function (req, res) {
   res.send("Ruta INICIO");
 });
 
-//Registro de crias y clasifiacion
+//Registro de crias y clasifiacion, método POST(Create)
 app.post("/api/crias", (req, res) => {
   //Creando objeto para insertar nueva cria
   let data = {
@@ -51,10 +52,8 @@ app.post("/api/crias", (req, res) => {
     marmoleo = data.marmoleo;
   //Clasicacion de Cria Tipo 1 o Tipo 2
   if (
-    peso >= 15 &&
-    peso <= 25 &&
-    color <= 5 &&
-    color >= 3 &&
+    peso >= 15 && peso <= 25 &&
+    color <= 5 && color >= 3 &&
     (marmoleo == 1 || marmoleo == 2)
   ) {
     data.clasificacion = "Tipo 1";
@@ -71,14 +70,13 @@ app.post("/api/crias", (req, res) => {
   connection.query(sql, data, (error, results) => {
     if (error) {
       throw error;
-    } else {
-       Object.assign(data,{id: results.insertId}) // SE AGREGO NUEVO
+    } else {     
       res.send(results);
     }
   });
 });
 
-//Registro de algun ID a Cuarentena (0 = Sin cuarentena, 1 = Cuarentena)
+//Registro de algun ID en Cuarentena, método  PUT (UPDATE, actualizar)
 app.put("/api/crias/:id/:set", (req, res) => {
   connection.query(
     "UPDATE registrarCria SET cuarentena = ? WHERE id= ? ",
@@ -94,7 +92,7 @@ app.put("/api/crias/:id/:set", (req, res) => {
 });
 
 
-//Registro de sensores en una cría preexistente por id
+//Registro de sensores en una cría preexistente por id, método POST
 app.post("/api/crias", (req, res) => {
   //Creando objeto para insertar datos sensores
   let data = {
@@ -116,11 +114,8 @@ app.post("/api/crias", (req, res) => {
   });
 });
 
-
-//EXTRA (HACER JOINS)
-
-// Mostrar toda la información de la base de datos
-//dos parametros callback (req---> peticion , resp ----> response)
+// Mostrar toda la información de la base de datos de registro de cría
+//dos parametros callback (req---> peticion , resp ----> response), Método Get (mostrar)
 app.get("/api/crias", (req, res) => {
   connection.query("SELECT * FROM registrarCria", (error, filas) => {
     if (error) {
@@ -131,7 +126,19 @@ app.get("/api/crias", (req, res) => {
   });
 });
 
-//Eliminar un solo dato de la db de registro de crías.
+// Mostrar toda la información de la base de datos de Sensores
+//dos parametros callback (req---> peticion , resp ----> response)
+app.get("/api/crias", (req, res) => {
+    connection.query("SELECT * FROM RegistroSensore", (error, filas) => {
+      if (error) {
+        throw error;
+      } else {
+        res.send(filas);
+      }
+    });
+  });
+
+//Eliminar un solo dato de la db de registro de crías, Método DELETE
 app.delete("/api/crias:id", (req, res) => {
   connection.query(
     "DELETE FROM registrarCria WHERE id= ? ",
@@ -147,7 +154,7 @@ app.delete("/api/crias:id", (req, res) => {
 });
 
 
-//Editar registro de cria ya quedo oks
+//Editar registro de cria, Método PUT (editar)
 app.put('/api/crias/:id', (req, res)=>{
     let id = req.params.id;
     let nombre_registrador = req.body.nombre_registrador;

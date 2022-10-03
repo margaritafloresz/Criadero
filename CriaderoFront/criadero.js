@@ -1,11 +1,10 @@
-
 //Definiendo variables
 
 const url = 'http://localhost:3000/api/crias'
 
 const contenedor = document.querySelector('tbody');
 let resultados = '';
-//Regustri Criadero
+//Regustro  de Crías (Criadero)
 const modalCriadero = new bootstrap.Modal(document.getElementById('modalCriadero'));
 const formRegistro = document.querySelector('form');
 const nombre = document.getElementById('nombre');
@@ -22,7 +21,7 @@ const freRespiratoria = document.getElementById('freRespiratoria');
 const temperatura = document.getElementById('temperatura');
 let opcion = ''
 
-//mostrar el boton de regristro de crias
+//Mostrar el boton de regristro de crias
 btnCrear.addEventListener('click', ()=>{
     nombre.value=''
     peso.value= ''
@@ -54,9 +53,11 @@ const mostrar = (criadero) =>{
             <td>${crias.clasificacion}</td>
             <td class="text-center">
             <a class="btnCuarentena btn btn-warning"> Cuarentena</a>
-            <a class="btnquitarCuarentena btn btn-success"> Quitar Cuarentena</a>
-            <a class="btnEditar btn btn-primary"> Editar</a>
-            <a class="btnEliminar btn btn-danger"> Eliminar</a>
+            <br>
+            <a class="btnquitarCuarentena btn btn-success mt-2"> Quitar <br> Cuarentena</a>
+            <br>
+            <a class="btnEditar btn btn-primary mt-2"> Editar</a>
+            <a class="btnEliminar btn btn-danger mt-2"> Eliminar</a>
   
         </td>
         </tr>  
@@ -146,10 +147,10 @@ formRegistro.addEventListener('submit', (e)=>{
                  'Content-Type':'application/json'
              },
              body: JSON.stringify({
-                 nombre_registrador: nombre.value,
+                nombre_registrador: nombre.value,
                 peso_ingreso: peso.value,
-                 marmoleo: marmoleo.value,
-             color_musculo: color.value,
+                marmoleo: marmoleo.value,
+                color_musculo: color.value,
 
              })
          })
