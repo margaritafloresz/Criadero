@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Criadero</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css" />
+  <link rel="stylesheet" href="./criadero.css">
+</head>
+
+<body>
+    <div class="container mt-4 shadow-lg p-3 mb-5 bg-body rounded">
+       <!--Para que se abre el boton desde un modal--> 
+    
+       <button id="btnCrear"type="button" class="btn btn-primary" data-bs-toggle="modal" >Registrar Cría</button>
+        <table id="tablaCriadero" class="table mt-2 table-bordered">
+            <thead>
+                <tr class="text-center">
+                    <th>Id</th>
+                    <th>Nombre del usuario</th>
+                    <th>Peso </th>
+                    <th>Marmoleo</th>
+                    <th>Color músculo</th>
+                    <th>Cuarentena</th>
+                    <th>Clasificación</th>
+                    <th>Peticiones</th>
+
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+
+        </table>
+    </div>
+
+  
+    <!--Formulario registro de Crías-->
+    <div id="modalCriadero"class="modal fade"tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header bg-primary text-white">
+            <h5 class="modal-title" id="exampleModalLabel">Registro Crías</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label for="nombre" class="col-form-label">Nombre del Usuario</label>
+                <input id="nombre"type="text" class="form-control">
+              </div>
+              <div class="mb-3">
+                <label for="peso" class="col-form-label">Peso de la cría</label>
+                <input id="peso" type="number" step="any" min="0" max="100" class="form-control">
+              </div>
+              <div class="mb-3">
+                <label for="marmoleo" class="col-form-label">Marmoleo de la cría</label>
+                <input id="marmoleo"type="number" class="form-control">
+              </div>
+              <div class="mb-3">
+                <label for="color" class="col-form-label">Color del Músculo</label>
+                <input id="color"type="" class="form-control">
+              </div>          
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <button type="submit" class="btn btn-primary">Registrar</button>
+          </div>
+        </form>
+        </div>
+      </div>
+    </div>
+ <!--Terminación de formulario registro de Crías-->
+
+<!--Scripts-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+        crossorigin="anonymous"></script>
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+    <script src="./criadero.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
+
+<!--Scripts-->
+</body>
+
+</html>
