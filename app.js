@@ -58,14 +58,17 @@ app.post("/api/crias", (req, res) => {
   ) {
     data.clasificacion = "Tipo 1";
   } else if (
-    (peso < 15 || peso > 25) &&
+    (peso < 15 && peso > 25) &&
     (color == 1 || color == 2 || color == 6 || color == 7) &&
     marmoleo >= 3 &&
     marmoleo <= 5
   ) {
     data.clasificacion = "Tipo 2";
-  } else {
-    data.clasificacion = "Sin Clasificacion";
+
+  } else if ( (peso >= 35) &&( color ==7|| color==8) && ( marmoleo >=7)){
+    data.clasificacion = "Tipo 3";
+  } else{
+    data.clasificacion = "Sin clasificacion";
   }
   connection.query(sql, data, (error, results) => {
     if (error) {
