@@ -76,6 +76,71 @@
     </div>
  <!--Terminación de formulario registro de Crías-->
 
+ <!-- FORMULARIO INGRESO SENSORES-->
+ <div class="container mt-4 shadow-lg p-3 mb-5 bg-body rounded">
+  <!--Para que se abre el boton desde un modal--> 
+
+  <button id="btnSensores"type="button" class="btn btn-primary" data-bs-toggle="modal" >Registrar Sensores</button>
+   <table id="tablaSensores" class="table mt-2 table-bordered">
+       <thead>
+           <tr class="text-center">
+               <th>Id</th>
+               <th>freCardiaca</th>
+               <th>preSanguinea </th>
+               <th>freRespiratoria</th>
+               <th>temperatura</th>
+
+           </tr>
+       </thead>
+       <tbody>
+
+       </tbody>
+
+   </table>
+</div>
+
+
+    <!--Formulario registro de Sensores-->
+    <div id="modalSensores"class="modal fade"tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header bg-primary text-white">
+            <h5 class="modal-title" id="exampleModalLabel">Registro de Sensores</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="formSensores">
+              <div class="mb-3">
+                <label for="id" class="col-form-label">ID</label>
+                <input id="id"type="text" class="form-control">
+              </div>
+              <div class="mb-3">
+                <label for="freCardiaca" class="col-form-label">Frecuencia Cardiaca</label>
+                <input id="freCardiaca"type="text" class="form-control">
+              </div>
+              <div class="mb-3">
+                <label for="preSanguinea" class="col-form-label">Presión Sanguínea</label>
+                <input id="preSanguinea" type="number" step="any" min="0" max="100" class="form-control">
+              </div>
+              <div class="mb-3">
+                <label for="freRespiratoria" class="col-form-label">Frecuencia Respiratoria</label>
+                <input id="freRespiratoria"type="number" class="form-control">
+              </div>
+              <div class="mb-3">
+                <label for="temperatura" class="col-form-label">Temperatura</label>
+                <input id="temperatura"type="" class="form-control">
+              </div>          
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <button type="submit" class="btn btn-primary">Registrar</button>
+          </div>
+        </form>
+        </div>
+      </div>
+    </div>
+ <!--Terminación de formulario registro de Crías -->
+
 <!--Scripts-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"

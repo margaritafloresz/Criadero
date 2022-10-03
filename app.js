@@ -18,10 +18,17 @@ var connection = mysql.createConnection({
 //Probamos la conexión
 connection.connect(function (error) {
   if (error) {
-    throw error; //Capturar el error
-  } else {
-    console.log("La conexión es exitosa");
-  }
+      throw error; //Capturar el error
+    } else {
+        console.log("La conexión es exitosa");
+    }
+});
+//Variable Puerto
+const port = "3000";
+
+//Requiere dos parametros puerto(escucha las conexiones ), (función para recojer o corraborar)
+app.listen(port, function () {
+  console.log("Servidor OK en puerto: " + port);
 });
 //configuración de rutas
 
@@ -50,16 +57,16 @@ app.post("/api/crias", (req, res) => {
     color >= 3 &&
     (marmoleo == 1 || marmoleo == 2)
   ) {
-    data.clasificacion = 1;
+    data.clasificacion = "Tipo 1";
   } else if (
     (peso < 15 || peso > 25) &&
     (color == 1 || color == 2 || color == 6 || color == 7) &&
     marmoleo >= 3 &&
     marmoleo <= 5
   ) {
-    data.clasificacion = 2;
+    data.clasificacion = "Tipo 2";
   } else {
-    data.clasificacion = 0;
+    data.clasificacion = "Sin Clasificacion";
   }
   connection.query(sql, data, (error, results) => {
     if (error) {
@@ -72,10 +79,10 @@ app.post("/api/crias", (req, res) => {
 });
 
 //Registro de algun ID a Cuarentena (0 = Sin cuarentena, 1 = Cuarentena)
-app.put("/api/crias/:id/:cuarentena", (req, res) => {
+app.put("/api/crias/:id/:set", (req, res) => {
   connection.query(
-    "UPDATE registrarCria SET cuarentena = 1 WHERE id= ? ",
-    [req.params.id],
+    "UPDATE registrarCria SET cuarentena = ? WHERE id= ? ",
+    [req.params.set,req.params.id],
     (error, fila) => {
       if (error) {
         throw error;
@@ -109,13 +116,6 @@ app.post("/api/crias", (req, res) => {
   });
 });
 
-//Variable Puerto
-const port = "3000";
-
-//Requiere dos parametros puerto(escucha las conexiones ), (función para recojer o corraborar)
-app.listen(port, function () {
-  console.log("Servidor OK en puerto: " + port);
-});
 
 //EXTRA (HACER JOINS)
 

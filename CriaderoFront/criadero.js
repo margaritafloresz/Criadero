@@ -5,16 +5,24 @@ const url = 'http://localhost:3000/api/crias'
 
 const contenedor = document.querySelector('tbody');
 let resultados = '';
-
+//Regustri Criadero
 const modalCriadero = new bootstrap.Modal(document.getElementById('modalCriadero'));
 const formRegistro = document.querySelector('form');
 const nombre = document.getElementById('nombre');
 const peso = document.getElementById('peso');
 const marmoleo = document.getElementById('marmoleo');
 const color = document.getElementById('color');
+//Registro Sensores
+const modalSensores = new bootstrap.Modal(document.getElementById('modalSensores'));
+const formSensores = document.querySelector('.formSensores');
+const id = document.getElementById('id');
+const freCardiaca = document.getElementById('freCardiaca');
+const preSanguinea = document.getElementById('preSanguinea');
+const freRespiratoria = document.getElementById('freRespiratoria');
+const temperatura = document.getElementById('temperatura');
 let opcion = ''
 
-//mostrar el boton de regristro
+//mostrar el boton de regristro de crias
 btnCrear.addEventListener('click', ()=>{
     nombre.value=''
     peso.value= ''
@@ -22,6 +30,15 @@ btnCrear.addEventListener('click', ()=>{
     color.value = ''
     modalCriadero.show();
     opcion = 'crear'
+});
+//mostrar el boton de regristro sensores
+btnSensores.addEventListener('click', ()=>{
+    id.value=''
+    freCardiaca.value= ''
+    preSanguinea.value = ''
+    freRespiratoria.value = ''
+    temperatura.value = ''
+    modalSensores.show();
 });
 //Función para mostrar los resultados 
 const mostrar = (criadero) =>{
@@ -37,6 +54,7 @@ const mostrar = (criadero) =>{
             <td>${crias.clasificacion}</td>
             <td class="text-center">
             <a class="btnCuarentena btn btn-warning"> Cuarentena</a>
+            <a class="btnquitarCuarentena btn btn-success"> Quitar Cuarentena</a>
             <a class="btnEditar btn btn-primary"> Editar</a>
             <a class="btnEliminar btn btn-danger"> Eliminar</a>
   
@@ -46,6 +64,23 @@ const mostrar = (criadero) =>{
     })
     contenedor.innerHTML = resultados 
 }
+//Función para mostrar los resultados  en sensores
+const mostrarSensores = (sensores) =>{
+    sensores.forEach(sensor => {
+        resultados +=`
+        <tr>
+            <td>${sensor.id}</td>
+            <td>${sensor.freCardiaca}</td>
+            <td>${sensor.preSanguinea}</td>
+            <td>${sensor.freRespiratoria}</td>
+            <td>${sensor.temperatura}</td>
+        </td>
+        </tr>  
+    `  
+    })
+    contenedor.innerHTML = resultados 
+}
+
 
 
 //Procedimiento Mostrar, fetch y promessas
@@ -126,16 +161,16 @@ formRegistro.addEventListener('submit', (e)=>{
          })
     }
     if(opcion =='editar'){
-        fetch(url+idForm,{
+        fetch(url+'/'+idForm,{
          method: 'PUT',
          headers:{
              'Content-Type' : 'application/json'
          },
          body: JSON.stringify({
-             nombre: nombreForm.value,
-             peso: personalbar.value,
+             nombre_registrador: nombre.value,
+             peso_ingreso: peso.value,
              marmoleo: marmoleo.value,
-             color: color.value,
+             color_musculo: color.value,
          })
      })
          .then(response => response.json())
@@ -148,11 +183,43 @@ formRegistro.addEventListener('submit', (e)=>{
 
 on(document, 'click', '.btnCuarentena', e =>{  
     const fila = e.target.parentNode.parentNode
-    const id = fila.firstElementChild.innerHTML    
+    const id = fila.firstElementChild.innerHTML
+    const set = fila.lastElementChild.previousSibling.innerHTML
     alertify.confirm("¿Quieres ingresar a cuarentena esta cria?",
     function(){
-        fetch(url+id+`cuarentena`, {
-            method: 'POST'
+        fetch(url+'/'+id+'/'+'Si', {
+            method: 'PUT',
+            headers:{
+                'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify({
+                id : id
+            })
+        })
+        .then( res => res.json() )
+        .then( ()=> location.reload())
+    
+    },
+    function(){
+    alertify.error('Cancelar');
+    })
+            
+})
+
+on(document, 'click', '.btnquitarCuarentena', e =>{  
+    const fila = e.target.parentNode.parentNode
+    const id = fila.firstElementChild.innerHTML
+    const set = fila.lastElementChild.previousSibling.innerHTML
+    alertify.confirm("¿Deseas quitar esta cria de la cuarentena?",
+    function(){
+        fetch(url+'/'+id+'/'+'No', {
+            method: 'PUT',
+            headers:{
+                'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify({
+                id : id
+            })
         })
         .then( res => res.json() )
         .then( ()=> location.reload())
